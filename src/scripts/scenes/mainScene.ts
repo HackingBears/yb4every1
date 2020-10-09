@@ -26,10 +26,9 @@ export default class MainScene extends Scene3D {
     this.drawFieldLines();
 
     const ground = new Pitch(this);
-    ground.activatePhysics()
+    ground.activatePhysics();
 
-    const  ball = new Ball(this);
-    ball.activatePhysics();
+    const ball = new Ball(this);
 
     let pos : PlayerStatus[] = [{x:-1, z: 2}, {x:-1, z:0}, {x:-1, z: -2}, {x:-3, z:1}, {x:-3, z:-1}]
     let players = new Set<Player>()
@@ -38,7 +37,6 @@ export default class MainScene extends Scene3D {
       player.activatePhysics()
       players.add(player)
     }
-
 
     this.initCameras()
     this.third.camera = this.cam3dView
