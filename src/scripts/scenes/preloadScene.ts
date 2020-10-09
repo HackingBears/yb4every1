@@ -1,4 +1,4 @@
-import {config} from '../game';
+import {config, gameState} from '../game';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -15,6 +15,7 @@ export default class PreloadScene extends Phaser.Scene {
     button.setInteractive();
     button.on('pointerdown', ev =>
         {
+          gameState.selectedTeam = 'YB';
           this.scene.start('MainScene');
         }
     );
@@ -23,6 +24,7 @@ export default class PreloadScene extends Phaser.Scene {
     button2.setInteractive();
     button2.on('pointerdown', ev =>
         {
+          gameState.selectedTeam = 'FCB';
           this.scene.start('MainScene');
         }
     );

@@ -16,6 +16,11 @@ export const config: Phaser.Types.Core.GameConfig = {
   ...Canvas()
 };
 
+export let gameState: {
+  selectedTeam: string,
+  frameNumber: number
+};
+
 window.addEventListener('load', () => {
   enable3d(() => new Phaser.Game(config)).withPhysics('/assets/ammo')
 });
