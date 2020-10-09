@@ -2,6 +2,7 @@ import { enable3d, Scene3D, Canvas, THREE, ExtendedObject3D,  } from '@enable3d/
 import Ball from "../objects/ball";
 import Pitch from "../objects/pitch";
 import Player, {PlayerStatus} from "../objects/player";
+import {Position} from '../game';
 
 
 export default class MainScene extends Scene3D {
@@ -24,8 +25,14 @@ export default class MainScene extends Scene3D {
     this.third.camera.updateProjectionMatrix();
     this.third.warpSpeed('-ground');
 
-    const platformMaterial = { phong: { transparent: true, color: 0x21572f } }
+    //const platformMaterial = { phong: { transparent: true, color: 0x21572f } }
     //this.third.physics.add.box({ name: 'platform-ground', y: -1, width: 15, depth: 25, height: 1, mass: 0 }, platformMaterial)
+
+    //this.third.add.box({ height: 0.1, x: 10, y: -0.5, width: 20, depth: 0.8 }, { lambert: { color: 0xffffff } });
+
+    //this.third.add.box({ x: -10, y: -0.5, z: -10, width: 2, height: 0.1, depth: 4 }, { lambert: { color: 0xff0000 } });
+    this.drawFieldLines();
+
     const ground = new Pitch(this);
     ground.activatePhysics()
 
@@ -53,13 +60,18 @@ export default class MainScene extends Scene3D {
     this.input.keyboard.on('keydown-M', () => {
       pos[0].x=5;
       players.forEach(player => {
-        player.update()
+        player.moveToPosition({x: 4, y: 4} as Position)
       })
-
     })
   }
 
-  update() {}
+  update() {
+
+  }
+
+  updateGameStatus() {
+
+  }
 
   initCameras(){
     const zoom = 35
@@ -71,5 +83,22 @@ export default class MainScene extends Scene3D {
 
     this.cam3dView = this.third.cameras.perspectiveCamera({  z: 30, y: 15 ,x: 0, fov:50 , near:0.1, far:1000})
     this.cam3dView.lookAt(0, 0, 0)
+  }
+
+  drawLine(startX: number, startY: number, width: number, length: number) {
+    //this.third.add.box({ height: 0.1, x: startX, y: -0.5, z: startY, width: endX, depth: endY }, { lambert: { color: 0xffffff } });
+    this.third.add.box({ x: startX, y: -0.5, z: startY, width: width, height: 0.1, depth: length }, { lambert: { color: 0xffffff } });
+  }
+
+  private drawFieldLines() {
+    //Border Lines
+    this.drawLine(0, 8.9, 36, 0.3);
+    this.drawLine(0, -8.9, 36, 0.3);
+    this.drawLine(17.9, 0, 0.3, 18);
+    this.drawLine(-17.9, 0, 0.3, 18);
+
+    //Middle Line
+    this.drawLine(0, 0, 0.3, 18);
+
   }
 }

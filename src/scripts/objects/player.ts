@@ -1,4 +1,5 @@
 import { enable3d, Scene3D, Canvas, THREE, ExtendedObject3D } from '@enable3d/phaser-extension'
+import {Position} from '../game';
 
 export default class Player extends ExtendedObject3D {
 
@@ -22,7 +23,7 @@ export default class Player extends ExtendedObject3D {
         this.scene.third.physics.add.existing(this)
     }
 
-    update(){
+    moveToPosition(newPosition: Position){
         // tween the position
         this.body.setCollisionFlags(2)
         let tmp = this.position.clone()
@@ -30,10 +31,10 @@ export default class Player extends ExtendedObject3D {
             targets: tmp,
             duration: 5000,
             delay: 100,
-            x: this.ps.x,
-            z: this.ps.z,
+            x: newPosition.x,
+            z: newPosition.y,
             onUpdate: () => {
-                this.position.set(tmp.x, tmp.y, tmp.z)
+                this.position.set(tmp.x, tmp.y, tmp.z);
                 this.body.needUpdate = true
             }
         })

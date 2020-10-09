@@ -44,7 +44,6 @@ export let gameState = {
   players: []
 } as GameState;
 
-
 window.addEventListener('load', () => {
   const gameInfoService = new GameInfoService();
   gameInfoService.getGames().then(games => {
