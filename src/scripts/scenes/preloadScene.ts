@@ -20,8 +20,8 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   private buildTeamSide(homeTeam: Team, awayTeam: Team) {
-    const width = window.innerWidth * window.devicePixelRatio as number;
-    const height = window.innerHeight * window.devicePixelRatio as number;
+    const width = window.outerWidth as number;
+    const height = window.outerHeight as number;
 
     const button = this.add.rectangle(0, 0, width, height * 2);
     button.setInteractive();
