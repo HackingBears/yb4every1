@@ -2,12 +2,12 @@ import { enable3d, Scene3D, Canvas, THREE, ExtendedObject3D } from '@enable3d/ph
 
 export default class Ball extends ExtendedObject3D {
 
-    private scene :Scene3D
+    private scene :Scene3D;
 
     constructor(scene: Scene3D) {
-        super()
-        this.scene = scene
-        this.init()
+        super();
+        this.scene = scene;
+        this.init();
     }
 
      init(){
@@ -16,10 +16,10 @@ export default class Ball extends ExtendedObject3D {
             //  grass.offset.set(0, 0)
             grass.repeat.set(2, 2);
             // // BUG: To add shadows to your ground, set transparent = true
-             const ball = this.scene.third.physics.add.sphere({ radius: .5 }, { phong: { map: grass, transparent: true } });
-            this.add(ball)
+            const ball = this.scene.third.physics.add.sphere({ y: -1,  radius: .5 }, { phong: { map: grass, transparent: true } });
+            this.add(ball);
         });
 
-        this.scene.third.add.existing(this)
+        this.scene.third.add.existing(this);
     }
 }

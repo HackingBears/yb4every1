@@ -29,7 +29,7 @@ export interface GameState {
 }
 
 export interface Player {
-  playerId: string,
+  playerId: number,
   position: Position,
   hasBall: boolean
 }

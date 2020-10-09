@@ -18,21 +18,6 @@ export default class Player extends ExtendedObject3D {
     }
 
     activatePhysics(){
-        if(this.ps.x > 5) {
-            this.ps.x = 5;
-        }
-        if(this.ps.x < -5) {
-            this.ps.x = -5;
-        }
-
-        if(this.ps.y < -2) {
-            this.ps.y = -2;
-        }
-
-        if(this.ps.y > 2) {
-            this.ps.y = 2;
-        }
-
         this.position.set(this.ps.x * this.factor, 0.2, this.ps.y * this.factor);
         this.scene.third.add.existing(this)
         this.scene.third.physics.add.existing(this)
@@ -44,10 +29,10 @@ export default class Player extends ExtendedObject3D {
         let tmp = this.position.clone()
         this.scene.tweens.add({
             targets: tmp,
-            duration: 5000,
+            duration: 700,
             delay: 100,
-            x: newPosition.x,
-            z: newPosition.y,
+            x: newPosition.x * this.factor,
+            z: newPosition.y * this.factor,
             onUpdate: () => {
                 this.position.set(tmp.x, tmp.y, tmp.z);
                 this.body.needUpdate = true

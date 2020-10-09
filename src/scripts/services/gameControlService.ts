@@ -27,6 +27,9 @@ export default class GameControlService {
         gameState.playerId = value.playerId;
         gameState.userId = value.userId;
     });
+    connection.on('GameFinished', () => {
+        console.log('GameFinished');
+    });
     return connection.start();
   }
 
