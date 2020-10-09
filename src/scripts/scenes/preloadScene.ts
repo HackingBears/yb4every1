@@ -41,15 +41,9 @@ export default class PreloadScene extends Phaser.Scene {
         }
     );
 
-    let image1 = this.add.image(
-        this.textures.get('yblogo').getSourceImage().width / 2,
-        this.textures.get('yblogo').getSourceImage().height / 2,
-        'yblogo');
-    image1.setScale( image1.width / width * 2);
-    let image2 = this.add.image(
-        width - this.textures.get('fcblogo').getSourceImage().width / 2,
-        this.textures.get('fcblogo').getSourceImage().height / 2,
-        'fcblogo');
-    image2.setScale( image1.width / width * 2);
+    let image1 = this.add.image(width / 4, height / 2, 'yblogo');
+    image1.setScale(height / 2 / image1.height);
+    let image2 = this.add.image(width / 4 * 3, height / 2, 'fcblogo');
+    image2.setScale(height / 2 / image2.height);
   }
 }
