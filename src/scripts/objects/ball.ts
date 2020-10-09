@@ -16,7 +16,7 @@ export default class Ball extends ExtendedObject3D {
             //  grass.offset.set(0, 0)
             grass.repeat.set(2, 2);
             // // BUG: To add shadows to your ground, set transparent = true
-            const ball = this.scene.third.physics.add.sphere({ y: -1,  radius: .5 }, { phong: { map: grass, transparent: true } });
+            const ball = this.scene.third.add.sphere({ y: 0,  radius: .5 }, { phong: { map: grass, transparent: false } });
             this.add(ball);
         });
 
