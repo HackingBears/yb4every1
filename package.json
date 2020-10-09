@@ -10,19 +10,17 @@
     "bundle": "npm run build",
     "serve": "serve dist"
   },
-  "author": {
-    "name": "HackingBears",
-    "url": "https://github.com/HackingBears"
-  },
+  "author": "HackingBears (https://github.com/HackingBears)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/HackingBears/yb4every1.git"
+    "url": "git+https://github.com/HackingBears/yb4every1.git"
   },
   "engines": {
     "node": ">=8.0.0"
   },
   "license": "MIT",
   "devDependencies": {
+    "axios": "^0.20.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.2",
     "html-webpack-plugin": "^3.2.0",
@@ -38,6 +36,8 @@
   },
   "dependencies": {
     "@enable3d/phaser-extension": "~0.20.0",
-    "phaser": "~3.24.1"
+    "phaser": "~3.24.1",
+    "@microsoft/signalr": "^3.1.8",
+    "@types/node": "^14.11.8"
   }
 }
