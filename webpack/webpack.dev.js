@@ -7,9 +7,11 @@ const dev = {
   devServer: {
     open: true,
     proxy: {
-      '/api': {
-        target: 'https://yb-hackathon.apps.openshift.ims.ch',
-        secure: false
+      '/app': {
+        target: 'https://ybhackathon-service.apps.openshift.ims.ch',
+        secure: false,
+        changeOrigin: true,
+        logLevel: 'debug'
       }
     }
   }

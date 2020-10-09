@@ -46,10 +46,10 @@ export let gameState = {
 
 
 window.addEventListener('load', () => {
-  const test = new GameInfoService();
-  test.getGameState();
+  const gameInfoService = new GameInfoService();
+  gameInfoService.getGames().then(games => {
+    console.log(games[0].stade);
+  });
 
-  const gameControlService = new GameControlService();
-  gameControlService.setupConnection();
   enable3d(() => new Phaser.Game(config)).withPhysics('/assets/ammo')
 });
