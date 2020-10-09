@@ -3,7 +3,7 @@ import { enable3d, Canvas } from '@enable3d/phaser-extension'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 
-const config: Phaser.Types.Core.GameConfig = {
+export const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   transparent: true,
   scale: {
@@ -14,8 +14,8 @@ const config: Phaser.Types.Core.GameConfig = {
   },
   scene: [PreloadScene, MainScene],
   ...Canvas()
-}
+};
 
 window.addEventListener('load', () => {
   enable3d(() => new Phaser.Game(config)).withPhysics('/assets/ammo')
-})
+});
