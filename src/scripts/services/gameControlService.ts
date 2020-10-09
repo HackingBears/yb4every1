@@ -1,7 +1,8 @@
 import * as signalR from "@microsoft/signalr"
+import { Voting } from "./voting.model";
 
 const connection = new signalR.HubConnectionBuilder()
-.withUrl("/api/gamecontrol")
+.withUrl("/app/gamehub")
 .withAutomaticReconnect()
 .configureLogging(signalR.LogLevel.Debug)
 .build();
@@ -12,9 +13,23 @@ export default class GameControlService {
 
   }
 
-  start(functionToExecute) {
-    connection.on('UpdateGameFrame', functionToExecute);
-    connection.on('UpdateTeamInfo', functionToExecute);
-    connection.start();
+  start() {
+    connection.on('UpdateGameFrame', () => {
+        console.log('GameFrame received!');
+    });
+    connection.on('CompleteRegistration', () => {
+        console.log('Registration completed!');
+    });
+    return connection.start();
+  }
+
+  async sendRegistration(gameId: integer, teamType: string)
+  {
+    await connection.send('RegisterToGame', gameId, teamType);
+  }
+
+  async voteNextAction(voting: Voting)
+  {
+    await connection.send('VoteNextAction', voting);
   }
 }

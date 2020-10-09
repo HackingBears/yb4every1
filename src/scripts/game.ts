@@ -28,7 +28,8 @@ export interface GameState {
 
 export interface Player {
   playerId: string,
-  position: Position
+  position: Position,
+  hasBall: boolean
 }
 
 export interface Position {
@@ -45,10 +46,5 @@ export let gameState = {
 } as GameState;
 
 window.addEventListener('load', () => {
-  const gameInfoService = new GameInfoService();
-  gameInfoService.getGames().then(games => {
-    console.log(games[0].stade);
-  });
-
   enable3d(() => new Phaser.Game(config)).withPhysics('/assets/ammo')
 });
