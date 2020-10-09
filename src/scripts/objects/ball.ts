@@ -1,8 +1,10 @@
 import { enable3d, Scene3D, Canvas, THREE, ExtendedObject3D } from '@enable3d/phaser-extension'
+import {Position} from "../game";
 
 export default class Ball extends ExtendedObject3D {
 
     private scene :Scene3D;
+    private factor: number = 3.0;
 
     constructor(scene: Scene3D) {
         super();
@@ -21,5 +23,21 @@ export default class Ball extends ExtendedObject3D {
         });
 
         this.scene.third.add.existing(this);
+    }
+    moveToPosition(newPosition: Position){
+        // tween the position
+        this.body.setCollisionFlags(2)
+        let tmp = this.position.clone()
+        this.scene.tweens.add({
+            targets: tmp,
+            duration: 700,
+            delay: 100,
+            x: newPosition.x * this.factor,
+            z: newPosition.y * this.factor,
+            onUpdate: () => {
+                this.position.set(tmp.x, tmp.y, tmp.z);
+                this.body.needUpdate = true
+            }
+        })
     }
 }
