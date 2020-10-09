@@ -5,6 +5,8 @@ export default class Player extends ExtendedObject3D {
     private scene :Scene3D
     private ps : PlayerStatus
 
+    private factor: number = 3.0;
+
     constructor(scene: Scene3D, status : PlayerStatus) {
         super()
         this.scene = scene
@@ -15,7 +17,7 @@ export default class Player extends ExtendedObject3D {
     }
 
     activatePhysics(){
-        this.position.set(this.ps.x, this.ps.y || 5, this.ps.z)
+        this.position.set(this.ps.x * this.factor, this.ps.y || 5, this.ps.z * this.factor);
         this.scene.third.add.existing(this)
         this.scene.third.physics.add.existing(this)
     }

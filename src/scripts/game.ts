@@ -18,13 +18,30 @@ export const config: Phaser.Types.Core.GameConfig = {
 
 export interface GameState {
   selectedTeam: string,
-  frameNumber: number
+  frameNumber: number,
+  userId: string,
+  playerId: string,
+  players: Player[]
+}
+
+export interface Player {
+  playerId: string,
+  position: Position
+}
+
+export interface Position {
+  x: number,
+  y: number
 }
 
 export let gameState = {
   selectedTeam: '',
-  frameNumber: 0
+  frameNumber: 0,
+  userId: '',
+  playerId: '',
+  players: []
 } as GameState;
+
 
 window.addEventListener('load', () => {
   enable3d(() => new Phaser.Game(config)).withPhysics('/assets/ammo')

@@ -13,8 +13,6 @@ export default class MainScene extends Scene3D {
     super('MainScene')
   }
 
-
-
   init() {
     this.accessThirdDimension()
   //  this.third.load.preload('ball', '/assets/img/ball.svg')
@@ -34,7 +32,7 @@ export default class MainScene extends Scene3D {
     const  ball = new Ball(this);
     ball.activatePhysics();
 
-    let pos : PlayerStatus[] = [{x:1, z: 0}, {x:2, z:0}, {x:0, z: 1}, {x:2, z:1}]
+    let pos : PlayerStatus[] = [{x:-1, z: 2}, {x:-1, z:0}, {x:-1, z: -2}, {x:-3, z:1}, {x:-3, z:-1}]
     let players = new Set<Player>()
     for (const pp of pos) {
       const player = new Player(this, pp)
@@ -46,7 +44,7 @@ export default class MainScene extends Scene3D {
     this.initCameras()
     this.third.camera = this.cam3dView
     this.input.keyboard.on('keydown-O', () => {
-      this.third.camera = this.cam2dView
+      this.third.camera = this.cam2dView;
     })
     this.input.keyboard.on('keydown-P', () => {
       this.third.camera = this.cam3dView
@@ -74,7 +72,4 @@ export default class MainScene extends Scene3D {
     this.cam3dView = this.third.cameras.perspectiveCamera({  z: 30, y: 15 ,x: 0, fov:50 , near:0.1, far:1000})
     this.cam3dView.lookAt(0, 0, 0)
   }
-
-
-
 }
