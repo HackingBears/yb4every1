@@ -6,6 +6,12 @@ export default class PreloadScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.scene.start('MainScene')
+    const button = this.add.circle(100,100,50, 0xff0000)
+    button.setInteractive();
+    button.on('pointerover', ev =>
+        {
+          this.scene.start('MainScene')
+        }
+    )
   }
 }
