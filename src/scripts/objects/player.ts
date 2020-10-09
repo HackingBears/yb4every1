@@ -3,22 +3,37 @@ import {Position} from '../game';
 
 export default class Player extends ExtendedObject3D {
 
-    private scene :Scene3D
-    private ps : PlayerStatus
+    private scene :Scene3D;
+    private ps : Position;
 
     private factor: number = 3.0;
 
-    constructor(scene: Scene3D, status : PlayerStatus) {
-        super()
-        this.scene = scene
-        this.ps = status
-        const body = scene.third.add.box({ height: 1.5, y: 0, width: 0.8, depth: 0.8 }, { lambert: { color: 0xffff00 } })
-        const head = scene.third.add.sphere({ radius: 0.5, y: 1.3, z: 0.05 }, { lambert: { color: 0xffff00 } })
+    constructor(scene: Scene3D, position : Position, color: number) {
+        super();
+        this.scene = scene;
+        this.ps = position;
+        const body = scene.third.add.box({ height: 1.5, y: 0, width: 0.8, depth: 0.8 }, { lambert: { color } });
+        const head = scene.third.add.sphere({ radius: 0.5, y: 1.3, z: 0.05 }, { lambert: { color } });
         this.add(body, head)
     }
 
     activatePhysics(){
-        this.position.set(this.ps.x * this.factor, this.ps.y || 5, this.ps.z * this.factor);
+        if(this.ps.x > 5) {
+            this.ps.x = 5;
+        }
+        if(this.ps.x < -5) {
+            this.ps.x = -5;
+        }
+
+        if(this.ps.y < -2) {
+            this.ps.y = -2;
+        }
+
+        if(this.ps.y > 2) {
+            this.ps.y = 2;
+        }
+
+        this.position.set(this.ps.x * this.factor, 0.2, this.ps.y * this.factor);
         this.scene.third.add.existing(this)
         this.scene.third.physics.add.existing(this)
     }
@@ -39,10 +54,4 @@ export default class Player extends ExtendedObject3D {
             }
         })
     }
-}
-
-export class PlayerStatus {
-    x: number
-    y?: number
-    z: number
 }

@@ -14,6 +14,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     new GameInfoService().getGames().then(games => {
+      gameState.gameId = games[0].id;
       this.buildTeamSide(games[0].homeTeam, games[0].awayTeam);
     });
   }
