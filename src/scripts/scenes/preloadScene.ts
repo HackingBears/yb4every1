@@ -7,7 +7,13 @@ export default class PreloadScene extends Phaser.Scene {
     super({ key: 'PreloadScene' })
   }
 
-  preload() {}
+  image1: any;
+  image2: any;
+
+  preload() {
+    this.load.image('yblogo', 'assets/img/BSC_Young_Boys_logo.svg')
+    this.load.image('fcblogo', 'assets/img/FC_Basel_logo.svg')
+  }
 
   create() {
     new GameInfoService().getGames().then(games => {
@@ -19,7 +25,7 @@ export default class PreloadScene extends Phaser.Scene {
     const width = window.innerWidth * window.devicePixelRatio as number;
     const height = window.innerHeight * window.devicePixelRatio as number;
 
-    const button = this.add.rectangle(0, 0, (width / 2) - 20, height - 20, 0xffff00);
+    const button = this.add.rectangle(0, 0, width, height * 2);
     button.setInteractive();
     button.on('pointerdown', ev =>
         {
@@ -28,7 +34,7 @@ export default class PreloadScene extends Phaser.Scene {
         }
     );
 
-    const button2 = this.add.rectangle((width / 2) + 20, 0, (width / 2) - 20, height - 20, 0x0000ff);
+    const button2 = this.add.rectangle(width, 0, width, height * 2);
     button2.setInteractive();
     button2.on('pointerdown', ev =>
         {
@@ -37,7 +43,15 @@ export default class PreloadScene extends Phaser.Scene {
         }
     );
 
-    this.add.text((config.scale?.width as number / 4) - 100, (config.scale?.height as number / 2) - 50, homeTeam.name, { fontSize: '6em', color: '#000', fontFamily: '"ComicSans MS"' });
-    this.add.text(((config.scale?.width as number / 4) * 3) - 100, (config.scale?.height as number / 2) - 50, awayTeam.name, { fontSize: '6em', color: '#000', fontFamily: '"ComicSans MS"' });
+    let image1 = this.add.image(
+        this.textures.get('yblogo').getSourceImage().width / 2,
+        this.textures.get('yblogo').getSourceImage().height / 2,
+        'yblogo');
+    image1.setScale( image1.width / width * 2);
+    let image2 = this.add.image(
+        width - this.textures.get('fcblogo').getSourceImage().width / 2,
+        this.textures.get('fcblogo').getSourceImage().height / 2,
+        'fcblogo');
+    image2.setScale( image1.width / width * 2);
   }
 }
