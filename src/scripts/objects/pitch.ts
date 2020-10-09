@@ -10,7 +10,7 @@ export default class Pitch extends ExtendedObject3D {
         this.init()
     }
 
-    async init(){
+    init(){
         this.scene.third.load.texture('grass').then(grass => {
             grass.wrapS = grass.wrapT = 1000 // RepeatWrapping
             grass.offset.set(0, 0)

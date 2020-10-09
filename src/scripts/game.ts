@@ -4,6 +4,7 @@ import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 import GameInfoService from './services/gameInfoService'
 import GameControlService from './services/gameControlService'
+import ChooseScene from "./scenes/chooseScene";
 
 export const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
@@ -14,7 +15,7 @@ export const config: Phaser.Types.Core.GameConfig = {
     width: window.innerWidth * Math.max(1, window.devicePixelRatio / 2),
     height: window.innerHeight * Math.max(1, window.devicePixelRatio / 2)
   },
-  scene: [PreloadScene, MainScene],
+  scene: [PreloadScene, MainScene, ChooseScene],
   ...Canvas()
 };
 
@@ -22,7 +23,7 @@ export interface GameState {
   selectedTeam: string,
   frameNumber: number,
   userId: string,
-  playerId: string,
+  playerId: number,
   players: Player[],
   gameId: integer,
   gameFrameUpdated: boolean
@@ -43,7 +44,7 @@ export let gameState = {
   selectedTeam: '',
   frameNumber: 0,
   userId: '',
-  playerId: '',
+  playerId: 0,
   players: [],
   gameId: 0,
   gameFrameUpdated: false

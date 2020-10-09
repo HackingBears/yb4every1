@@ -21,7 +21,7 @@ export default class MainScene extends Scene3D {
 
   init() {
     this.accessThirdDimension();
-    this.third.load.preload('grass', '/assets/img/grass.jpg');
+    this.third.load.preload('grass', '/assets/img/grass2.jpg');
   }
 
   create() {
@@ -32,6 +32,11 @@ export default class MainScene extends Scene3D {
         this.buildScene();
       });
     });
+
+    this.input.keyboard.on('keydown-M', () => {
+
+      this.show2d();
+    })
   }
 
   update() {
@@ -62,8 +67,25 @@ export default class MainScene extends Scene3D {
     this.cam2dView.position.set(0, 10, 0);
     this.cam2dView.lookAt(0, 0, 0);
 
-    this.cam3dView = this.third.cameras.perspectiveCamera({  z: 30, y: 15 ,x: 0, fov:50 , near:0.1, far:1000});
+    this.cam3dView = this.third.cameras.perspectiveCamera({  z: 20, y: 10 ,x: 0, fov:50 , near:0.1, far:1000});
     this.cam3dView.lookAt(0, 0, 0);
+  }
+
+  show3d(){
+    this.third.camera = this.cam3dView;
+  }
+
+  show2d(){
+    this.third.camera = this.cam2dView;
+    this.time.delayedCall(3000, ev => {this.showChooseScene()}, [], this);
+
+  }
+
+  showChooseScene(){
+    //this.third.scene.visible=false
+    this.scene.switch('ChooseScene')
+    // this.game.events.emit('ttt')
+
   }
 
   drawLine(startX: number, startY: number, width: number, length: number) {
