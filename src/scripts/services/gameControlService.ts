@@ -24,6 +24,7 @@ export default class GameControlService {
     });
     connection.on('CompleteRegistration', value => {
         console.log('Registration completed!');
+        console.log(value);
         gameState.playerId = value.playerId;
         gameState.userId = value.userId;
     });

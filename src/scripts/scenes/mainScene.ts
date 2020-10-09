@@ -42,6 +42,7 @@ export default class MainScene extends Scene3D {
   update() {
     if (gameState.gameFrameUpdated) {
       if(this.players.size === 0) {
+        console.log(gameState.players);
         this.initializePlayers(gameState.players);
       } else {
         let i = 0;
@@ -127,8 +128,8 @@ export default class MainScene extends Scene3D {
 
   private initializePlayers(playerArray: PlayerType[]) {
     playerArray.forEach((pp, index) => {
-      const color = index < 6 ? 0xffff00 : 0x0000ff;
-      const player = new Player(this, pp.position, color);
+      let color = index < 6 ? 0xf2d045 : 0x153A83;
+      const player = new Player(this, pp.position, color, pp.id === gameState.playerId);
       player.activatePhysics();
       this.players.add(player);
     });

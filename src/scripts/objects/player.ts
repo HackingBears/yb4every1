@@ -8,13 +8,18 @@ export default class Player extends ExtendedObject3D {
 
     private factor: number = 3.0;
 
-    constructor(scene: Scene3D, position : Position, color: number) {
+    constructor(scene: Scene3D, position : Position, color: number, selectedPlayer: boolean) {
         super();
         this.scene = scene;
         this.ps = position;
         const body = scene.third.add.box({ height: 1.5, y: 0, width: 0.8, depth: 0.8 }, { lambert: { color } });
         const head = scene.third.add.sphere({ radius: 0.5, y: 1.3, z: 0.05 }, { lambert: { color } });
-        this.add(body, head)
+        if(selectedPlayer){
+            const selection = scene.third.add.cylinder({ radiusBottom: 0.8, radiusTop: 0.8, height: 0.2, y: -0.7, z: 0, radiusSegments: 20}, {lambert: {color: 0xff0000}});
+            this.add(body, head, selection);
+        } else {
+            this.add(body, head)
+        }
     }
 
     activatePhysics(){
