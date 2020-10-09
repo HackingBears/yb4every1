@@ -5,7 +5,13 @@ const dev = {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    open: true
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'https://yb-hackathon.apps.openshift.ims.ch',
+        secure: false
+      }
+    }
   }
 }
 
