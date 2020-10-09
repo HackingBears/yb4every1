@@ -1,0 +1,17 @@
+# hide server version
+server_tokens off;
+
+server {
+    listen       8080  default_server;
+    server_name  _;
+    absolute_redirect off;
+    location / {
+        root   /var/www;
+        index  index.html;
+    }
+
+    location /health {
+        access_log off;
+        return 200 "ok\n";
+    }
+}

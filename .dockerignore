@@ -1,0 +1,7 @@
+node_modules/*
+pwa/*
+readme/*
+src/*
+typings/*
+webpack/*
+.idea/*
