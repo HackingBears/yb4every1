@@ -1,10 +1,7 @@
-export enum GameAction{
-    N = 'N',
-    NO = 'NO',
-    O = 'O',
-    SO = 'SO',
-    S = 'S',
-    SW = 'SW',
-    W = 'W',
-    NW = 'NW', 
+import { Direction } from "./direction.model";
+import { Action } from "./action.model";
+
+export interface GameAction{
+    action: Action,
+    direction: Direction,
 }
