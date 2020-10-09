@@ -16,8 +16,6 @@ export default class MainScene extends Scene3D {
 
   init() {
     this.accessThirdDimension()
-  //  this.third.load.preload('ball', '/assets/img/ball.svg')
-  //  this.load.svg('ball','/assets/img/ball.svg', { width: 100, height: 100 })
     this.third.load.preload('grass', '/assets/img/grass.jpg')
   }
 
@@ -25,12 +23,6 @@ export default class MainScene extends Scene3D {
     this.third.camera.updateProjectionMatrix();
     this.third.warpSpeed('-ground');
 
-    //const platformMaterial = { phong: { transparent: true, color: 0x21572f } }
-    //this.third.physics.add.box({ name: 'platform-ground', y: -1, width: 15, depth: 25, height: 1, mass: 0 }, platformMaterial)
-
-    //this.third.add.box({ height: 0.1, x: 10, y: -0.5, width: 20, depth: 0.8 }, { lambert: { color: 0xffffff } });
-
-    //this.third.add.box({ x: -10, y: -0.5, z: -10, width: 2, height: 0.1, depth: 4 }, { lambert: { color: 0xff0000 } });
     this.drawFieldLines();
 
     const ground = new Pitch(this);

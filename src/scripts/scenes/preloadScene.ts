@@ -10,7 +10,6 @@ export default class PreloadScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    //GameInfoService --> Get Teams
     new GameInfoService().getGames().then(games => {
       this.buildTeamSide(games[0].homeTeam, games[0].awayTeam);
     });
@@ -25,7 +24,6 @@ export default class PreloadScene extends Phaser.Scene {
     button.on('pointerdown', ev =>
         {
           gameState.selectedTeam = homeTeam.name;
-          //GameStartService -> Start Game with Team Name
           this.scene.start('MainScene');
         }
     );
@@ -35,7 +33,6 @@ export default class PreloadScene extends Phaser.Scene {
     button2.on('pointerdown', ev =>
         {
           gameState.selectedTeam = awayTeam.name;
-          //GameStartService -> Start Game with Team Name
           this.scene.start('MainScene');
         }
     );
