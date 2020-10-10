@@ -29,6 +29,10 @@ export default class GameControlService {
         connection.on('GameFinished', () => {
             console.log('GameFinished');
         });
+        connection.on('Goal', (value) => {
+            gameState.gameFrameUpdated = true;
+            gameState.gameEvent = value.gameEvent;
+        });
         return connection.start();
     }
 
