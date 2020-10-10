@@ -14,9 +14,9 @@ export default class ChooseScene extends Phaser.Scene {
 
     private posX : number;
     private posY : number;
-    private timeBox: Rectangle;
+
     private chooseEndTimer : TimerEvent;
-    private timeBoxTimer : TimerEvent;
+
     private text: Phaser.GameObjects.Text;
     private visibleBefore = false;
     private gameControlService: GameControlService;
@@ -41,8 +41,8 @@ export default class ChooseScene extends Phaser.Scene {
         const buttonSW = this.addButton(this.posX+d,this.posY+d, Direction.SO);
         const buttonNW = this.addButton(this.posX+d,this.posY-d, Direction.NO);
 
-        this.add.rectangle(this.posX, 80,this.posX+80, 50,0x000000,0.9);
-        this.text = this.add.text(this.posX-200, 60,'Lauf in die Richtung',{fontSize: '4em', color: '#ffcf00', fontFamily: '"ComicSans MS"'})
+        this.add.rectangle(this.posX, 40,this.posX+80, 50,0x000000,0.9);
+        this.text = this.add.text(this.posX-200, 20,'Lauf in die Richtung',{fontSize: '4em', color: '#ffcf00', fontFamily: '"ComicSans MS"'})
     }
 
     update() {
@@ -54,9 +54,7 @@ export default class ChooseScene extends Phaser.Scene {
             }else{
                 this.text.setText('Lauf in die Richtung');
             }
-            this.timeBox = this.add.rectangle(this.posX, 107,this.posX+80, 5,0xff0000,0.5);
-            this.timeBoxTimer = this.time.addEvent({delay: 100,repeat:42 ,callback: ev => {this.timeBox.width = this.timeBox.width -10}});
-            this.chooseEndTimer = this.time.delayedCall(4500, ev => {this.showMainScene()}, [], this);
+            this.chooseEndTimer = this.time.delayedCall(3500, ev => {this.showMainScene()}, [], this);
         }
     }
 
@@ -69,7 +67,7 @@ export default class ChooseScene extends Phaser.Scene {
         button.setInteractive();
         button.on('pointerdown', ev => {
             this.chooseEndTimer.destroy();
-            this.timeBoxTimer.destroy();
+
             this.gameControlService
                 .voteNextAction({
                     gameAction: {direction: direction, action: gameState.hasBall ? Action.Shoot : Action.Run},
@@ -82,8 +80,6 @@ export default class ChooseScene extends Phaser.Scene {
     }
 
     showMainScene(){
-
-        this.children.remove(this.timeBox);
         const main = this.scene.get('MainScene') as MainScene;
         main.show3d();
         this.scene.switch('MainScene');
