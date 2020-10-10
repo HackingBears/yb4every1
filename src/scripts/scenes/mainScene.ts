@@ -141,7 +141,7 @@ export default class MainScene extends Scene3D {
     const banner = new Banner(this);
 
     this.textScoreAndTime = this.add.text(posX - 100, 5, 'TEXT', { fontSize: '5em', fontFamily: '"ComicSans MS"', color: 'black'});
-    this.textEvent = this.add.text(posX - 200, posY - 60, '', { fontSize: '20em', fontFamily: '"ComicSans MS"', color: '#f2d045'});
+    this.textEvent = this.add.text(width / 10, posY - 60, '', { fontSize: '20em', fontFamily: '"ComicSans MS"', color: '#f2d045'});
 
     this.initCameras();
     this.third.camera = this.cam3dView;
