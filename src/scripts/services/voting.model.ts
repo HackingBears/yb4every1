@@ -4,6 +4,6 @@ export interface Voting{
     userID: string,
 	gameID: integer,
 	playerID: integer,
-	action: GameAction,
+	gameAction: GameAction,
 	frameNumber: integer,
 }

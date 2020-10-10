@@ -72,7 +72,7 @@ export default class ChooseScene extends Phaser.Scene {
             this.timeBoxTimer.destroy();
             this.gameControlService
                 .voteNextAction({
-                    action: {direction: direction, action: gameState.hasBall ? Action.Shoot : Action.Run},
+                    gameAction: {direction: direction, action: gameState.hasBall ? Action.Shoot : Action.Run},
                     userID: gameState.userId,
                     gameID: gameState.gameId,
                     playerID: gameState.playerId,
