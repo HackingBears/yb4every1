@@ -1,4 +1,4 @@
-import { Player } from "../game";
+import { Player, Position } from "../game";
 
 export interface GameFrame{
     gameId: string,
@@ -7,6 +7,6 @@ export interface GameFrame{
     gameEvent: string,
     gameScore: string,
     gameTime: string,
-    ball: Position[],
+    ball: Position,
     players: Player[],
 }

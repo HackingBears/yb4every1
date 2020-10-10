@@ -51,5 +51,6 @@ export default class GameControlService {
     gameState.gameScore = gameFrame.gameScore;
     gameState.gameTime = gameFrame.gameTime;
     gameState.gameEvent = gameFrame.gameEvent;
+    gameState.ball = gameFrame.ball;
   }
 }

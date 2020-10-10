@@ -29,7 +29,8 @@ export interface GameState {
   gameFrameUpdated: boolean,
   gameScore: string,
   gameTime: string,
-  gameEvent: string
+  gameEvent: string,
+  ball: Position
 }
 
 export interface Player {
@@ -53,7 +54,8 @@ export let gameState = {
   gameFrameUpdated: false,
   gameScore: '',
   gameTime: '',
-  gameEvent: ''
+  gameEvent: '',
+  ball: {x:0, y:0}
 } as GameState;
 
 window.addEventListener('load', () => {

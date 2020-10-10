@@ -15,6 +15,7 @@ export default class MainScene extends Scene3D {
   gameControlService: GameControlService;
 
   players = new Set<Player>();
+  private ball : Ball;
 
   private textScoreAndTime: any;
   private textEvent: any;
@@ -40,8 +41,11 @@ export default class MainScene extends Scene3D {
     });
 
     this.input.keyboard.on('keydown-M', () => {
-
       this.show2d();
+    })
+    this.input.keyboard.on('keydown-B', () => {
+      const p = this.players.values().next().value
+      this.ball.moveToPosition({x:p.ps.x, y:p.ps.y}, false);
     })
   }
 
@@ -72,7 +76,17 @@ export default class MainScene extends Scene3D {
           i++;
         })
       }
-
+      let isYb = false;
+      let isOther = false;
+      const pp = gameState.players.filter(p => p.hasBall);
+      if(pp.length>0){
+        if(pp[0].id<6){
+          isYb=true;
+        }else{
+          isOther=true;
+        }
+      }
+      this.ball.moveToPosition(gameState.ball, isYb, isOther)
       gameState.gameFrameUpdated = false;
 
       setTimeout(() => {this.show2d()}, 2000);
@@ -138,7 +152,7 @@ export default class MainScene extends Scene3D {
     const ground = new Pitch(this);
     ground.activatePhysics();
 
-    const ball = new Ball(this);
+    this.ball = new Ball(this);
 
     const banner = new Banner(this);
 

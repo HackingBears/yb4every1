@@ -24,19 +24,17 @@ export default class Ball extends ExtendedObject3D {
 
         this.scene.third.add.existing(this);
     }
-    moveToPosition(newPosition: Position){
+    moveToPosition(newPosition: Position, isYb : boolean, isOther : boolean){
         // tween the position
-        this.body.setCollisionFlags(2)
         let tmp = this.position.clone()
         this.scene.tweens.add({
             targets: tmp,
             duration: 700,
             delay: 100,
-            x: newPosition.x * this.factor,
-            z: newPosition.y * this.factor,
+            x: (newPosition.x * this.factor) + (isYb ? 1 : isOther ? -1 : 0),
+            z: (newPosition.y * this.factor) + 0.1,
             onUpdate: () => {
                 this.position.set(tmp.x, tmp.y, tmp.z);
-                this.body.needUpdate = true
             }
         })
     }

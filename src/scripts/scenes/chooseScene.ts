@@ -71,7 +71,7 @@ export default class ChooseScene extends Phaser.Scene {
                     userID: gameState.userId,
                     gameID: gameState.gameId,
                     playerID: gameState.playerId,
-                    frameNumber: gameState.frameNumber});
+                    frameNumber: gameState.frameNumber + 1});
             this.showMainScene();
         });
     }
