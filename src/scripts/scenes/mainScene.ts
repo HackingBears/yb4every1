@@ -72,17 +72,8 @@ export default class MainScene extends Scene3D {
           i++;
         })
       }
-      let isYb = false;
-      let isOther = false;
-      const pp = gameState.players.filter(p => p.hasBall);
-      if(pp.length>0){
-        if(pp[0].id<6){
-          isYb=true;
-        }else{
-          isOther=true;
-        }
-      }
-      this.ball.moveToPosition(gameState.ball, isYb, isOther)
+
+      this.ball.moveToPosition(gameState.ball, gameState.ybHasBall, gameState.otherHasBall)
       gameState.gameFrameUpdated = false;
 
       setTimeout(() => {this.show2d()}, 2000);
@@ -112,10 +103,7 @@ export default class MainScene extends Scene3D {
   }
 
   showChooseScene(){
-    //this.third.scene.visible=false
     this.scene.switch('ChooseScene')
-    // this.game.events.emit('ttt')
-
   }
 
   drawLine(startX: number, startY: number, width: number, length: number) {
@@ -162,6 +150,10 @@ export default class MainScene extends Scene3D {
     });
     this.input.keyboard.on('keydown-P', () => {
       this.third.camera = this.cam3dView
+    })
+    this.input.keyboard.on('keydown-C', () => {
+      gameState.hasBall=true;
+      this.show2d();
     })
   }
 

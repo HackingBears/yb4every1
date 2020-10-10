@@ -5,52 +5,65 @@ import {gameState} from '../game';
 import {GameFrame} from './gameFrame.model';
 
 const connection = new signalR.HubConnectionBuilder()
-.withUrl("/app/gamehub", HttpTransportType.ServerSentEvents | HttpTransportType.LongPolling)
-.withAutomaticReconnect()
-.configureLogging(signalR.LogLevel.Debug)
-.build();
+    .withUrl("/app/gamehub", HttpTransportType.ServerSentEvents | HttpTransportType.LongPolling)
+    .withAutomaticReconnect()
+    .configureLogging(signalR.LogLevel.Debug)
+    .build();
 
 export default class GameControlService {
 
-  constructor() {
+    constructor() {
 
-  }
+    }
 
-  start() {
-    connection.on('UpdateGameFrame', value => {
-        console.log('GameFrame received!');
-        console.log(value);
-        this.updateGameFrame(value);
-    });
-    connection.on('CompleteRegistration', value => {
-        console.log('Registration completed!');
-        console.log(value);
-        gameState.playerId = value.playerId;
-        gameState.userId = value.userId;
-    });
-    connection.on('GameFinished', () => {
-        console.log('GameFinished');
-    });
-    return connection.start();
-  }
+    start() {
+        connection.on('UpdateGameFrame', value => {
+            console.log('GameFrame received!');
+            console.log(value);
+            this.updateGameFrame(value);
+        });
+        connection.on('CompleteRegistration', value => {
+            console.log('Registration completed!');
+            console.log(value);
+            gameState.playerId = value.playerId;
+            gameState.userId = value.userId;
+        });
+        connection.on('GameFinished', () => {
+            console.log('GameFinished');
+        });
+        return connection.start();
+    }
 
-  sendRegistration(gameId: integer, teamType: string)
-  {
-    return connection.send('RegisterToGame', gameId, teamType);
-  }
+    sendRegistration(gameId: integer, teamType: string) {
+        return connection.send('RegisterToGame', gameId, teamType);
+    }
 
-  async voteNextAction(voting: Voting)
-  {
-    await connection.send('VoteNextAction', voting);
-  }
+    async voteNextAction(voting: Voting) {
+        await connection.send('VoteNextAction', voting);
+    }
 
-  private updateGameFrame(gameFrame: GameFrame) {
-      gameState.frameNumber = gameFrame.frameNumber;
-    gameState.players = gameFrame.players;
-    gameState.gameFrameUpdated = true;
-    gameState.gameScore = gameFrame.gameScore;
-    gameState.gameTime = gameFrame.gameTime;
-    gameState.gameEvent = gameFrame.gameEvent;
-    gameState.ball = gameFrame.ball;
-  }
+    private updateGameFrame(gameFrame: GameFrame) {
+        gameState.frameNumber = gameFrame.frameNumber;
+        gameState.players = gameFrame.players;
+        gameState.gameFrameUpdated = true;
+        gameState.gameScore = gameFrame.gameScore;
+        gameState.gameTime = gameFrame.gameTime;
+        gameState.gameEvent = gameFrame.gameEvent;
+        gameState.ball = gameFrame.ball;
+        const player = gameState.players.find(f => f.id == gameState.playerId);
+        gameState.hasBall = player !== undefined && player.hasBall;
+
+        let isYb = false;
+        let isOther = false;
+        const pp = gameState.players.find(p => p.hasBall);
+        if (pp !== undefined) {
+            if (pp.id < 6) {
+                isYb = true;
+            } else {
+                isOther = true;
+            }
+        }
+        gameState.ybHasBall = isYb;
+        gameState.otherHasBall = isOther;
+    }
 }

@@ -17,6 +17,7 @@ export default class ChooseScene extends Phaser.Scene {
     private timeBox: Rectangle;
     private chooseEndTimer : TimerEvent;
     private timeBoxTimer : TimerEvent;
+    private text: Phaser.GameObjects.Text;
     private visibleBefore = false;
     private gameControlService: GameControlService;
 
@@ -41,14 +42,18 @@ export default class ChooseScene extends Phaser.Scene {
         const buttonNW = this.addButton(this.posX+d,this.posY-d, Direction.NW);
 
         this.add.rectangle(this.posX, 80,this.posX+80, 50,0x000000,0.9);
-        this.add.text(this.posX-200, 60,'Wähle deinen nächsten Zug',{fontSize: '4em', color: '#ffcf00', fontFamily: '"ComicSans MS"'})
-
+        this.text = this.add.text(this.posX-200, 60,'Lauf in die Richtung',{fontSize: '4em', color: '#ffcf00', fontFamily: '"ComicSans MS"'})
     }
 
     update() {
         if(this.scene.isVisible('ChooseScene') && !this.visibleBefore){
             console.log("choose is visible");
             this.visibleBefore = true;
+            if(gameState.hasBall){
+                this.text.setText('Spiele den Ball');
+            }else{
+                this.text.setText('Lauf in die Richtung');
+            }
             this.timeBox = this.add.rectangle(this.posX, 107,this.posX+80, 5,0xff0000,0.5);
             this.timeBoxTimer = this.time.addEvent({delay: 100,repeat:62 ,callback: ev => {this.timeBox.width = this.timeBox.width -10}});
             this.chooseEndTimer = this.time.delayedCall(6500, ev => {this.showMainScene()}, [], this);
@@ -60,14 +65,14 @@ export default class ChooseScene extends Phaser.Scene {
         const alpha = 0.7;
         const color = 0xffcf00;
         const button = this.add.circle(x,y, radius, color, alpha);
-        // TODO this.add.image(posX,posY+ (d * 1.5), 'grass').setRotation(45)
+
         button.setInteractive();
         button.on('pointerdown', ev => {
             this.chooseEndTimer.destroy();
             this.timeBoxTimer.destroy();
             this.gameControlService
                 .voteNextAction({
-                    action: {direction: action, action: Action.Run},
+                    action: {direction: action, action: gameState.hasBall ? Action.Shoot : Action.Run},
                     userID: gameState.userId,
                     gameID: gameState.gameId,
                     playerID: gameState.playerId,

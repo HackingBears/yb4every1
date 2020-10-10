@@ -20,6 +20,8 @@ export const config: Phaser.Types.Core.GameConfig = {
 };
 
 export interface GameState {
+  otherHasBall: boolean,
+  ybHasBall: boolean,
   selectedTeam: string,
   frameNumber: number,
   userId: string,
@@ -30,7 +32,8 @@ export interface GameState {
   gameScore: string,
   gameTime: string,
   gameEvent: string,
-  ball: Position
+  ball: Position,
+  hasBall: boolean
 }
 
 export interface Player {
@@ -45,6 +48,8 @@ export interface Position {
 }
 
 export let gameState = {
+  otherHasBall: false,
+  ybHasBall: false,
   selectedTeam: '',
   frameNumber: 0,
   userId: '',
@@ -55,7 +60,8 @@ export let gameState = {
   gameScore: '',
   gameTime: '',
   gameEvent: '',
-  ball: {x:0, y:0}
+  ball: {x:0, y:0},
+  hasBall: false
 } as GameState;
 
 window.addEventListener('load', () => {
