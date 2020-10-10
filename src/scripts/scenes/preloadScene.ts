@@ -10,7 +10,7 @@ export default class PreloadScene extends Phaser.Scene {
   preload() {
     this.load.svg('yblogo', 'assets/img/BSC_Young_Boys_logo.svg',{width:300, height:300});
     this.load.svg('fcblogo', 'assets/img/FC_Basel_logo.svg',{width:300, height:300});
-    this.load.image('ybhackathon', '/assets/img/ybhackathon.png');
+    this.load.svg('ybhackathon', 'assets/img/ybhackathon.svg', {width: 300, height: 90});
   }
 
   create() {
@@ -43,6 +43,6 @@ export default class PreloadScene extends Phaser.Scene {
           this.scene.start('MainScene');
         }
     );
-    this.add.image(posX, posY*1.8, 'ybhackathon').setScale(.2,.2)
+    this.add.image(posX, posY*1.8, 'ybhackathon')
   }
 }
