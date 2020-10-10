@@ -26,7 +26,9 @@ export interface GameState {
   playerId: number,
   players: Player[],
   gameId: integer,
-  gameFrameUpdated: boolean
+  gameFrameUpdated: boolean,
+  gameScore: string,
+  gameTime: string,
 }
 
 export interface Player {
@@ -47,7 +49,9 @@ export let gameState = {
   playerId: 0,
   players: [],
   gameId: 0,
-  gameFrameUpdated: false
+  gameFrameUpdated: false,
+  gameScore: '',
+  gameTime: ''
 } as GameState;
 
 window.addEventListener('load', () => {

@@ -45,8 +45,10 @@ export default class GameControlService {
   }
 
   private updateGameFrame(gameFrame: GameFrame) {
-    gameState.frameNumber = gameFrame.frameNumber;
+      gameState.frameNumber = gameFrame.frameNumber;
     gameState.players = gameFrame.players;
     gameState.gameFrameUpdated = true;
+    gameState.gameScore = gameFrame.gameScore;
+    gameState.gameTime = gameFrame.gameTime;
   }
 }

@@ -16,6 +16,8 @@ export default class MainScene extends Scene3D {
 
   players = new Set<Player>();
 
+  private text: any;
+
   constructor() {
     super('MainScene')
   }
@@ -44,6 +46,8 @@ export default class MainScene extends Scene3D {
 
   update() {
     if (gameState.gameFrameUpdated) {
+      this.text.text = gameState.gameTime + ' - ' + gameState.gameScore;
+
       if(this.players.size === 0) {
         console.log(gameState.players);
         this.initializePlayers(gameState.players);
@@ -114,6 +118,11 @@ export default class MainScene extends Scene3D {
     this.third.camera.updateProjectionMatrix();
     this.third.warpSpeed('-ground');
 
+    const width = this.game.scale.width;
+    const height = this.game.scale.height;
+    const posX = width / 2;
+    const posY = height / 2;
+
     //this.drawFieldLines();
 
     const ground = new Pitch(this);
@@ -122,6 +131,8 @@ export default class MainScene extends Scene3D {
     const ball = new Ball(this);
 
     const banner = new Banner(this);
+
+    this.text = this.add.text(posX - 100, 5, 'TEXT', { fontSize: '5em', fontFamily: '"ComicSans MS"', color: 'black'});
 
     this.initCameras();
     this.third.camera = this.cam3dView;
