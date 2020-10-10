@@ -34,8 +34,10 @@ export default class MainScene extends Scene3D {
   create() {
     this.gameControlService = new GameControlService();
 
+    console.log(gameState);
+
     this.gameControlService.start().then(() => {
-      this.gameControlService.sendRegistration(1, 'Home').then(() => {
+      this.gameControlService.sendRegistration(1, gameState.awayHome).then(() => {
         this.buildScene();
       });
     });

@@ -33,7 +33,8 @@ export interface GameState {
   gameTime: string,
   gameEvent: string,
   ball: Position,
-  hasBall: boolean
+  hasBall: boolean,
+  awayHome: string
 }
 
 export interface Player {
@@ -61,7 +62,8 @@ export let gameState = {
   gameTime: '',
   gameEvent: '',
   ball: {x:0, y:0},
-  hasBall: false
+  hasBall: false,
+  awayHome: 'Home'
 } as GameState;
 
 window.addEventListener('load', () => {

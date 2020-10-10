@@ -38,6 +38,7 @@ export default class PreloadScene extends Phaser.Scene {
     logoYB.on('pointerdown', ev =>
         {
           gameState.selectedTeam = homeTeam.name;
+          gameState.awayHome = 'Home';
           this.scene.start('MainScene');
         }
     );
@@ -47,6 +48,7 @@ export default class PreloadScene extends Phaser.Scene {
     logoGuest.on('pointerdown', ev =>
         {
           gameState.selectedTeam = awayTeam.name;
+          gameState.awayHome = 'Away';
           this.scene.start('MainScene');
         }
     );
