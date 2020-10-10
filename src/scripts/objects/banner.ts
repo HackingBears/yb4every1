@@ -20,10 +20,4 @@ export default class Banner extends ExtendedObject3D {
             this.scene.third.physics.add.box({ name: 'banner', z: -11, y: 0.1, width: 38, depth: 2, height: 1.5, mass: 0 }, { phong: { map: logo, transparent: true } });
         })
     }
-
-    activatePhysics(){
-        this.scene.third.add.existing(this);
-        this.scene.third.physics.add.existing(this);
-    }
-
 }

@@ -59,6 +59,8 @@ export default class MainScene extends Scene3D {
       }
 
       gameState.gameFrameUpdated = false;
+
+      setTimeout(() => {this.show2d()}, 2000);
     }
   }
 
