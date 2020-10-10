@@ -140,7 +140,7 @@ export default class MainScene extends Scene3D {
 
     const banner = new Banner(this);
 
-    this.textScoreAndTime = this.add.text(posX - 100, 5, 'TEXT', { fontSize: '5em', fontFamily: '"ComicSans MS"', color: 'black'});
+    this.textScoreAndTime = this.add.text(posX - 100, 5, 'No game started', { fontSize: '5em', fontFamily: '"ComicSans MS"', color: 'black'});
     this.textEvent = this.add.text(width / 10, posY - 60, '', { fontSize: '20em', fontFamily: '"ComicSans MS"', color: '#f2d045'});
 
     this.initCameras();

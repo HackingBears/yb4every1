@@ -28,6 +28,8 @@ export default class GameControlService {
         });
         connection.on('GameFinished', () => {
             console.log('GameFinished');
+            gameState.gameFrameUpdated = true;
+            gameState.gameEvent = 'Game finished...';
             setTimeout(() => {
                 window.location.reload();
             }, 10000)
