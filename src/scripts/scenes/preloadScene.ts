@@ -8,8 +8,8 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('yblogo', 'assets/img/BSC_Young_Boys_logo.svg')
-    this.load.image('fcblogo', 'assets/img/FC_Basel_logo.svg')
+    this.load.image('yblogo', 'assets/img/BSC_Young_Boys_logo.svg');
+    this.load.image('fcblogo', 'assets/img/FC_Basel_logo.svg');
   }
 
   create() {

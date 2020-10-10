@@ -4,6 +4,7 @@ import Pitch from "../objects/pitch";
 import {gameState, Player as PlayerType} from '../game';
 import Player from '../objects/player';
 import GameControlService from '../services/gameControlService';
+import Banner from '../objects/banner';
 
 
 export default class MainScene extends Scene3D {
@@ -22,6 +23,7 @@ export default class MainScene extends Scene3D {
   init() {
     this.accessThirdDimension();
     this.third.load.preload('grass', '/assets/img/grass2.jpg');
+    this.third.load.preload('ybhackathon', '/assets/img/ybhackathon.png');
   }
 
   create() {
@@ -115,6 +117,8 @@ export default class MainScene extends Scene3D {
     ground.activatePhysics();
 
     const ball = new Ball(this);
+
+    const banner = new Banner(this);
 
     this.initCameras();
     this.third.camera = this.cam3dView;

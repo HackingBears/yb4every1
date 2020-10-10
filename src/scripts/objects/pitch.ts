@@ -12,9 +12,9 @@ export default class Pitch extends ExtendedObject3D {
 
     init(){
         this.scene.third.load.texture('grass').then(grass => {
-            grass.wrapS = grass.wrapT = 1000 // RepeatWrapping
-            grass.offset.set(0, 0)
-            grass.repeat.set(2, 2)
+            grass.wrapS = grass.wrapT = 1000; // RepeatWrapping
+            grass.offset.set(0, 0);
+            grass.repeat.set(10, 10);
 
             // BUG: To add shadows to your ground, set transparent = true
             this.scene.third.physics.add.box({ name: 'platform-ground', y: -1, width: 38, depth: 20, height: 1, mass: 0 }, { phong: { map: grass, transparent: true } })
