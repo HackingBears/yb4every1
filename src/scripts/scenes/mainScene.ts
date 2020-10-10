@@ -59,7 +59,6 @@ export default class MainScene extends Scene3D {
       }
 
       if(this.players.size === 0) {
-        console.log(gameState.players);
         this.initializePlayers(gameState.players);
       } else {
         let i = 0;
@@ -67,7 +66,6 @@ export default class MainScene extends Scene3D {
         this.players.forEach(player => {
           if(gameState.players[i]) {
             player.moveToPosition(gameState.players[i].position);
-            console.log(gameState.players[i].position);
           }
           i++;
         })
