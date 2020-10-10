@@ -42,7 +42,7 @@ export default class ChooseScene extends Phaser.Scene {
         const buttonNW = this.addButton(this.posX+d,this.posY-d, Direction.NO);
 
         this.add.rectangle(this.posX, 40,this.posX+80, 50,0x000000,0.9);
-        this.text = this.add.text(this.posX-200, 20,'Lauf in die Richtung',{fontSize: '4em', color: '#ffcf00', fontFamily: '"ComicSans MS"'})
+        this.text = this.add.text(this.posX-200, 20,'Wähle die Laufrichtung',{fontSize: '4em', color: '#ffcf00', fontFamily: '"Arial"'})
     }
 
     update() {
@@ -52,7 +52,7 @@ export default class ChooseScene extends Phaser.Scene {
             if(gameState.hasBall){
                 this.text.setText('Spiele den Ball');
             }else{
-                this.text.setText('Lauf in die Richtung');
+                this.text.setText('Wähle die Laufrichtung');
             }
             this.chooseEndTimer = this.time.delayedCall(3500, ev => {this.showMainScene()}, [], this);
         }
