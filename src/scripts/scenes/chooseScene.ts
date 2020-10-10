@@ -34,12 +34,12 @@ export default class ChooseScene extends Phaser.Scene {
 
         const buttonS = this.addButton(this.posX,this.posY+ (d * 1.5), Direction.S);
         const buttonN = this.addButton(this.posX,this.posY-(d * 1.5), Direction.N);
-        const buttonO = this.addButton(this.posX-(d * 1.5),this.posY, Direction.O);
-        const buttonW = this.addButton(this.posX+(d * 1.5),this.posY, Direction.W);
-        const buttonSO = this.addButton(this.posX-d,this.posY+d, Direction.SO);
-        const buttonNO = this.addButton(this.posX-d,this.posY-d, Direction.NO);
-        const buttonSW = this.addButton(this.posX+d,this.posY+d, Direction.SW);
-        const buttonNW = this.addButton(this.posX+d,this.posY-d, Direction.NW);
+        const buttonO = this.addButton(this.posX-(d * 1.5),this.posY, Direction.W);
+        const buttonW = this.addButton(this.posX+(d * 1.5),this.posY, Direction.O);
+        const buttonSO = this.addButton(this.posX-d,this.posY+d, Direction.SW);
+        const buttonNO = this.addButton(this.posX-d,this.posY-d, Direction.NW);
+        const buttonSW = this.addButton(this.posX+d,this.posY+d, Direction.SO);
+        const buttonNW = this.addButton(this.posX+d,this.posY-d, Direction.NO);
 
         this.add.rectangle(this.posX, 80,this.posX+80, 50,0x000000,0.9);
         this.text = this.add.text(this.posX-200, 60,'Lauf in die Richtung',{fontSize: '4em', color: '#ffcf00', fontFamily: '"ComicSans MS"'})
@@ -47,7 +47,7 @@ export default class ChooseScene extends Phaser.Scene {
 
     update() {
         if(this.scene.isVisible('ChooseScene') && !this.visibleBefore){
-            console.log("choose is visible");
+            console.log("Vote is visible");
             this.visibleBefore = true;
             if(gameState.hasBall){
                 this.text.setText('Spiele den Ball');
@@ -55,8 +55,8 @@ export default class ChooseScene extends Phaser.Scene {
                 this.text.setText('Lauf in die Richtung');
             }
             this.timeBox = this.add.rectangle(this.posX, 107,this.posX+80, 5,0xff0000,0.5);
-            this.timeBoxTimer = this.time.addEvent({delay: 100,repeat:62 ,callback: ev => {this.timeBox.width = this.timeBox.width -10}});
-            this.chooseEndTimer = this.time.delayedCall(6500, ev => {this.showMainScene()}, [], this);
+            this.timeBoxTimer = this.time.addEvent({delay: 100,repeat:42 ,callback: ev => {this.timeBox.width = this.timeBox.width -10}});
+            this.chooseEndTimer = this.time.delayedCall(4500, ev => {this.showMainScene()}, [], this);
         }
     }
 

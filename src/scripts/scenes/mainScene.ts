@@ -96,7 +96,7 @@ export default class MainScene extends Scene3D {
 
   show2d(){
     this.third.camera = this.cam2dView;
-    this.time.delayedCall(3000, ev => {this.showChooseScene()}, [], this);
+    this.time.delayedCall(1500, ev => {this.showChooseScene()}, [], this);
 
   }
 
