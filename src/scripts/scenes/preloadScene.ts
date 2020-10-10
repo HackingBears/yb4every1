@@ -11,6 +11,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.svg('yblogo', 'assets/img/BSC_Young_Boys_logo.svg',{width:300, height:300});
     this.load.svg('fcblogo', 'assets/img/FC_Basel_logo.svg',{width:300, height:300});
     this.load.svg('ybhackathon', 'assets/img/ybhackathon.svg', {width: 300, height: 90});
+    this.load.image('ybforever', 'assets/img/ybforever.jpg')
   }
 
   create() {
@@ -25,6 +26,12 @@ export default class PreloadScene extends Phaser.Scene {
     const height = this.game.scale.height;
     const posX = width / 2;
     const posY = height / 2;
+
+    let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'ybforever')
+    let scaleX = this.cameras.main.width / image.width
+    let scaleY = this.cameras.main.height / image.height
+    let scale = Math.max(scaleX, scaleY)
+    image.setScale(scale).setScrollFactor(0)
 
     const logoYB = this.add.image(posX/2, posY, 'yblogo');
     logoYB.setInteractive({ useHandCursor: true  } )
