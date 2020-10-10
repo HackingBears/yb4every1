@@ -60,7 +60,7 @@ export default class ChooseScene extends Phaser.Scene {
         }
     }
 
-    addButton(x: number, y: number, action: Direction){
+    addButton(x: number, y: number, direction: Direction){
         const radius = 40;
         const alpha = 0.7;
         const color = 0xffcf00;
@@ -72,7 +72,7 @@ export default class ChooseScene extends Phaser.Scene {
             this.timeBoxTimer.destroy();
             this.gameControlService
                 .voteNextAction({
-                    action: {direction: action, action: gameState.hasBall ? Action.Shoot : Action.Run},
+                    action: {direction: direction, action: gameState.hasBall ? Action.Shoot : Action.Run},
                     userID: gameState.userId,
                     gameID: gameState.gameId,
                     playerID: gameState.playerId,
