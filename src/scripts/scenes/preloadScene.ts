@@ -27,7 +27,7 @@ export default class PreloadScene extends Phaser.Scene {
     const posY = height / 2;
 
     const logoYB = this.add.image(posX/2, posY, 'yblogo');
-    logoYB.setInteractive()
+    logoYB.setInteractive({ useHandCursor: true  } )
     logoYB.on('pointerdown', ev =>
         {
           gameState.selectedTeam = homeTeam.name;
@@ -36,13 +36,28 @@ export default class PreloadScene extends Phaser.Scene {
     );
 
     const logoGuest = this.add.image(posX*1.5, posY, 'fcblogo');
-    logoGuest.setInteractive()
+    logoGuest.setInteractive({ useHandCursor: true  } )
     logoGuest.on('pointerdown', ev =>
         {
           gameState.selectedTeam = awayTeam.name;
           this.scene.start('MainScene');
         }
     );
-    this.add.image(posX, posY*1.8, 'ybhackathon')
+    const logoYbhackathon = this.add.image(posX, posY*1.8, 'ybhackathon');
+    logoYbhackathon.setInteractive({ useHandCursor: true  } )
+    logoYbhackathon.setTint(0xdddddd)
+    logoYbhackathon.on('pointerdown', ev =>
+       {
+          window.open('https://hackathon.bscyb.ch/')
+       }
+    );
+    logoYbhackathon.on('pointerover', ev =>
+    {
+      logoYbhackathon.setTint(0xffffff)
+    });
+    logoYbhackathon.on('pointerout', ev =>
+    {
+      logoYbhackathon.setTint(0xdddddd)
+    });
   }
 }
