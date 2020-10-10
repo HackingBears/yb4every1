@@ -28,6 +28,9 @@ export default class GameControlService {
         });
         connection.on('GameFinished', () => {
             console.log('GameFinished');
+            setTimeout(() => {
+                window.location.reload();
+            }, 10000)
         });
         connection.on('Goal', (value) => {
             gameState.gameFrameUpdated = true;
