@@ -23,6 +23,7 @@ export default class MainScene extends Scene3D {
   init() {
     this.accessThirdDimension();
     this.third.load.preload('grass', '/assets/img/grass2.jpg');
+    this.third.load.preload('soccerfield', '/assets/img/soccer_field.jpg');
     this.third.load.preload('ybhackathon', '/assets/img/ybhackathon.png');
   }
 
@@ -113,7 +114,7 @@ export default class MainScene extends Scene3D {
     this.third.camera.updateProjectionMatrix();
     this.third.warpSpeed('-ground');
 
-    this.drawFieldLines();
+    //this.drawFieldLines();
 
     const ground = new Pitch(this);
     ground.activatePhysics();
