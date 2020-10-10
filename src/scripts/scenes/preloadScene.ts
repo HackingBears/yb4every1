@@ -8,8 +8,9 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('yblogo', 'assets/img/BSC_Young_Boys_logo.svg');
-    this.load.image('fcblogo', 'assets/img/FC_Basel_logo.svg');
+    this.load.svg('yblogo', 'assets/img/BSC_Young_Boys_logo.svg',{width:300, height:300});
+    this.load.svg('fcblogo', 'assets/img/FC_Basel_logo.svg',{width:300, height:300});
+    this.load.image('ybhackathon', '/assets/img/ybhackathon.png');
   }
 
   create() {
@@ -20,30 +21,28 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   private buildTeamSide(homeTeam: Team, awayTeam: Team) {
-    const width = window.outerWidth as number;
-    const height = window.outerHeight as number;
+    const width = this.game.scale.width;
+    const height = this.game.scale.height;
+    const posX = width / 2;
+    const posY = height / 2;
 
-    const button = this.add.rectangle(0, 0, width, height * 2);
-    button.setInteractive();
-    button.on('pointerdown', ev =>
+    const logoYB = this.add.image(posX/2, posY, 'yblogo');
+    logoYB.setInteractive()
+    logoYB.on('pointerdown', ev =>
         {
           gameState.selectedTeam = homeTeam.name;
           this.scene.start('MainScene');
         }
     );
 
-    const button2 = this.add.rectangle(width, 0, width, height * 2);
-    button2.setInteractive();
-    button2.on('pointerdown', ev =>
+    const logoGuest = this.add.image(posX*1.5, posY, 'fcblogo');
+    logoGuest.setInteractive()
+    logoGuest.on('pointerdown', ev =>
         {
           gameState.selectedTeam = awayTeam.name;
           this.scene.start('MainScene');
         }
     );
-
-    let image1 = this.add.image(width / 4, height / 2, 'yblogo');
-    image1.setScale(height / 2 / image1.height);
-    let image2 = this.add.image(width / 4 * 3, height / 2, 'fcblogo');
-    image2.setScale(height / 2 / image2.height);
+    this.add.image(posX, posY*1.8, 'ybhackathon').setScale(.2,.2)
   }
 }

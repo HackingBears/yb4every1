@@ -65,7 +65,7 @@ export default class MainScene extends Scene3D {
   }
 
   initCameras(){
-    const zoom = 35;
+    const zoom = 29;
     const w = this.cameras.main.width / zoom;
     const h = this.cameras.main.height / zoom;
     this.cam2dView = this.third.cameras.orthographicCamera({ left: w / -2, right: w / 2, top: h / 2, bottom: h / -2 });
