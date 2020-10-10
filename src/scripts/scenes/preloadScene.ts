@@ -27,10 +27,32 @@ export default class PreloadScene extends Phaser.Scene {
     const posX = width / 2;
     const posY = height / 2;
 
+    let logo = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'yb4every1');
+    let scaleX = this.cameras.main.width / logo.width / 2;
+    let scaleY = this.cameras.main.height / logo.height / 2;
+    let scale = Math.max(scaleX, scaleY);
+    logo.setScale(scale).setScrollFactor(0).setVisible(false);
+
+    //  Let's show the logo when the camera shakes, and hide it when it completes
+
+    this.cameras.main.on('camerafadeoutstart', function () {
+
+      logo.setVisible(true);
+
+    });
+
+    this.cameras.main.on('camerafadeoutcomplete', function () {
+
+      logo.setVisible(false);
+
+    });
+
+    this.cameras.main.fadeIn(1000);
+
     let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'ybforever')
-    let scaleX = this.cameras.main.width / image.width
-    let scaleY = this.cameras.main.height / image.height
-    let scale = Math.max(scaleX, scaleY)
+    scaleX = this.cameras.main.width / image.width
+    scaleY = this.cameras.main.height / image.height
+    scale = Math.max(scaleX, scaleY)
     image.setScale(scale).setScrollFactor(0)
 
     const logoYB = this.add.image(posX/2, posY, 'yblogo');
