@@ -29,6 +29,7 @@ export interface GameState {
   gameFrameUpdated: boolean,
   gameScore: string,
   gameTime: string,
+  gameEvent: string
 }
 
 export interface Player {
@@ -51,7 +52,8 @@ export let gameState = {
   gameId: 0,
   gameFrameUpdated: false,
   gameScore: '',
-  gameTime: ''
+  gameTime: '',
+  gameEvent: ''
 } as GameState;
 
 window.addEventListener('load', () => {

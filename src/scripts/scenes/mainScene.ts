@@ -16,7 +16,8 @@ export default class MainScene extends Scene3D {
 
   players = new Set<Player>();
 
-  private text: any;
+  private textScoreAndTime: any;
+  private textEvent: any;
 
   constructor() {
     super('MainScene')
@@ -46,7 +47,16 @@ export default class MainScene extends Scene3D {
 
   update() {
     if (gameState.gameFrameUpdated) {
-      this.text.text = gameState.gameTime + ' - ' + gameState.gameScore;
+      this.textScoreAndTime.text = gameState.gameTime + ' - ' + gameState.gameScore;
+
+      if (gameState.gameEvent) {
+        this.textEvent.text = gameState.gameEvent;
+
+        setTimeout(() => {
+          this.textEvent.text = '';
+          gameState.gameEvent = '';
+        }, 2000);
+      }
 
       if(this.players.size === 0) {
         console.log(gameState.players);
@@ -132,7 +142,8 @@ export default class MainScene extends Scene3D {
 
     const banner = new Banner(this);
 
-    this.text = this.add.text(posX - 100, 5, 'TEXT', { fontSize: '5em', fontFamily: '"ComicSans MS"', color: 'black'});
+    this.textScoreAndTime = this.add.text(posX - 100, 5, 'TEXT', { fontSize: '5em', fontFamily: '"ComicSans MS"', color: 'black'});
+    this.textEvent = this.add.text(posX - 200, posY - 60, '', { fontSize: '20em', fontFamily: '"ComicSans MS"', color: '#f2d045'});
 
     this.initCameras();
     this.third.camera = this.cam3dView;
