@@ -43,10 +43,6 @@ export default class MainScene extends Scene3D {
     this.input.keyboard.on('keydown-M', () => {
       this.show2d();
     })
-    this.input.keyboard.on('keydown-B', () => {
-      const p = this.players.values().next().value
-      this.ball.moveToPosition({x:p.ps.x, y:p.ps.y}, false);
-    })
   }
 
   update() {
