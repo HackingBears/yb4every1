@@ -18,7 +18,6 @@ export default class MainScene extends Scene3D {
   private ball : Ball;
 
   private textScoreAndTime: any;
-  private textEvent: any;
 
   private positionExtensionFactor: number = 3.0;
 
@@ -48,9 +47,8 @@ export default class MainScene extends Scene3D {
   }
 
   update() {
-    if (gameState.gameFrameUpdated) {
+    if (gameState.gameFrameUpdated && this.textScoreAndTime) {
       this.updateScoreBoard();
-      this.updateGameEventText();
       this.updatePlayers();
       this.updateBall();
       this.updateVoting();
@@ -60,16 +58,10 @@ export default class MainScene extends Scene3D {
   }
 
   private updateScoreBoard() {
-    if (this.textScoreAndTime.text) {
-      this.textScoreAndTime.text = gameState.gameTime + ' - ' + gameState.gameScore;
-    }
-  }
-
-  private updateGameEventText() {
-    this.textEvent.text = '';
-
     if (gameState.gameEvent) {
-      this.textEvent.text = gameState.gameEvent;
+      this.textScoreAndTime.text = gameState.gameEvent;
+    } else {
+      this.textScoreAndTime.text = gameState.gameTime + ' - ' + gameState.gameScore;
     }
   }
 
@@ -146,8 +138,8 @@ export default class MainScene extends Scene3D {
 
     const banner = new Banner(this);
 
-    this.textScoreAndTime = this.add.text(posX - 400, 5, 'Es läuft zur Zeit leider kein Spiel 8)', { fontSize: '5em', fontFamily: '"Arial"', color: 'black'});
-    this.textEvent = this.add.text(width / 10, posY - 60, '', { fontSize: '20em', fontFamily: '"Arial"', color: '#f2d045'});
+    this.add.rectangle(posX, 40,posX+80, 50,0x000000,0.9);
+    this.textScoreAndTime = this.add.text(posX - 120, 20, 'Es läuft zur Zeit leider kein Spiel 8)', { fontSize: '4em', fontFamily: '"Arial"', color: '#ffcf00'});
 
     this.initCameras();
     this.third.camera = this.cam3dView;
