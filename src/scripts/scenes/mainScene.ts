@@ -49,34 +49,51 @@ export default class MainScene extends Scene3D {
 
   update() {
     if (gameState.gameFrameUpdated) {
-      this.textScoreAndTime.text = gameState.gameTime + ' - ' + gameState.gameScore;
+      this.updateScoreBoard();
+      this.updateGameEventText();
+      this.updatePlayers();
+      this.updateBall();
+      this.updateVoting();
 
-      if (gameState.gameEvent) {
-        this.textEvent.text = gameState.gameEvent;
-
-        setTimeout(() => {
-          this.textEvent.text = '';
-          gameState.gameEvent = '';
-        }, 2000);
-      }
-
-      if(this.players.size === 0) {
-        this.initializePlayers(gameState.players);
-      } else {
-        let i = 0;
-
-        this.players.forEach(player => {
-          if(gameState.players[i]) {
-            player.moveToPosition(gameState.players[i].position);
-          }
-          i++;
-        })
-      }
-
-      this.ball.moveToPosition(gameState.ball, gameState.ybHasBall, gameState.otherHasBall)
       gameState.gameFrameUpdated = false;
+    }
+  }
 
+  private updateScoreBoard() {
+    this.textScoreAndTime.text = gameState.gameTime + ' - ' + gameState.gameScore;
+  }
+
+  private updateGameEventText() {
+    this.textEvent.text = '';
+
+    if (gameState.gameEvent) {
+      this.textEvent.text = gameState.gameEvent;
+    }
+  }
+
+  private updatePlayers() {
+    if(this.players.size === 0) {
+      this.initializePlayers(gameState.players);
+    } else {
+      let i = 0;
+
+      this.players.forEach(player => {
+        if(gameState.players[i]) {
+          player.moveToPosition(gameState.players[i].position);
+        }
+        i++;
+      })
+    }
+  }
+
+  private updateBall() {
+    this.ball.moveToPosition(gameState.ball, gameState.ybHasBall, gameState.otherHasBall);
+  }
+
+  private updateVoting() {
+    if (gameState.showVoting) {
       setTimeout(() => {this.show2d()}, 2000);
+      gameState.showVoting = false;
     }
   }
 
@@ -99,27 +116,10 @@ export default class MainScene extends Scene3D {
   show2d(){
     this.third.camera = this.cam2dView;
     this.time.delayedCall(1500, ev => {this.showChooseScene()}, [], this);
-
   }
 
   showChooseScene(){
     this.scene.switch('ChooseScene')
-  }
-
-  drawLine(startX: number, startY: number, width: number, length: number) {
-    this.third.add.box({ x: startX, y: -0.5, z: startY, width: width, height: 0.1, depth: length }, { lambert: { color: 0xffffff } });
-  }
-
-  private drawFieldLines() {
-    //Border Lines
-    this.drawLine(0, 8.9, 36, 0.3);
-    this.drawLine(0, -8.9, 36, 0.3);
-    this.drawLine(17.9, 0, 0.3, 18);
-    this.drawLine(-17.9, 0, 0.3, 18);
-
-    //Middle Line
-    this.drawLine(0, 0, 0.3, 18);
-
   }
 
   private buildScene() {
@@ -130,8 +130,6 @@ export default class MainScene extends Scene3D {
     const height = this.game.scale.height;
     const posX = width / 2;
     const posY = height / 2;
-
-    //this.drawFieldLines();
 
     const ground = new Pitch(this);
     ground.activatePhysics();
@@ -150,7 +148,7 @@ export default class MainScene extends Scene3D {
     });
     this.input.keyboard.on('keydown-P', () => {
       this.third.camera = this.cam3dView
-    })
+    });
     this.input.keyboard.on('keydown-C', () => {
       gameState.hasBall=true;
       this.show2d();

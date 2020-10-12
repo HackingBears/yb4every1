@@ -1,6 +1,6 @@
-import {config, gameState} from '../game';
-import GameInfoService from '../services/gameInfoService';
+import {gameState} from '../game';
 import {Team} from '../services/team.model';
+import GameControlService from '../services/gameControlService';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -15,7 +15,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    new GameInfoService().getGames().then(games => {
+    new GameControlService().getGames().then(games => {
       gameState.gameId = games[0].id;
       this.buildTeamSide(games[0].homeTeam, games[0].awayTeam);
     });

@@ -1,10 +1,8 @@
 import MainScene from "./mainScene";
 import GameControlService from "../services/gameControlService";
 import {gameState} from '../game';
-import {Direction} from "../services/direction.model";
-import {Action} from "../services/action.model";
-import Rectangle = Phaser.GameObjects.Rectangle;
 import TimerEvent = Phaser.Time.TimerEvent;
+import {Action, Direction} from '../services/gameAction.model';
 
 export default class ChooseScene extends Phaser.Scene {
     constructor() {

@@ -2,8 +2,6 @@ import * as Phaser from 'phaser'
 import { enable3d, Canvas } from '@enable3d/phaser-extension'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
-import GameInfoService from './services/gameInfoService'
-import GameControlService from './services/gameControlService'
 import ChooseScene from "./scenes/chooseScene";
 
 export const config: Phaser.Types.Core.GameConfig = {
@@ -24,6 +22,7 @@ export interface GameState {
   ybHasBall: boolean,
   selectedTeam: string,
   frameNumber: number,
+  frameExpiration: number,
   userId: string,
   playerId: number,
   players: Player[],
@@ -34,7 +33,8 @@ export interface GameState {
   gameEvent: string,
   ball: Position,
   hasBall: boolean,
-  awayHome: string
+  awayHome: string,
+  showVoting: boolean
 }
 
 export interface Player {
@@ -53,6 +53,7 @@ export let gameState = {
   ybHasBall: false,
   selectedTeam: '',
   frameNumber: 0,
+  frameExpiration: 0,
   userId: '',
   playerId: 0,
   players: [],
@@ -63,7 +64,8 @@ export let gameState = {
   gameEvent: '',
   ball: {x:0, y:0},
   hasBall: false,
-  awayHome: 'Home'
+  awayHome: 'Home',
+  showVoting: false
 } as GameState;
 
 window.addEventListener('load', () => {

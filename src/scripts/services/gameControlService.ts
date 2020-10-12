@@ -1,8 +1,9 @@
 import * as signalR from "@microsoft/signalr"
 import {HttpTransportType} from "@microsoft/signalr"
 import {Voting} from "./voting.model";
-import {gameState} from '../game';
-import {GameFrame} from './gameFrame.model';
+import {gameState, Player, Position} from '../game';
+import {Game} from './game.model';
+import axios from 'axios';
 
 const connection = new signalR.HubConnectionBuilder()
     .withUrl("/app/gamehub", HttpTransportType.ServerSentEvents | HttpTransportType.LongPolling)
@@ -14,6 +15,10 @@ export default class GameControlService {
 
     constructor() {
 
+    }
+
+    async getGames():Promise<Game[]>{
+        return await (await axios.get('/app/games')).data;
     }
 
     start() {
@@ -34,6 +39,10 @@ export default class GameControlService {
                 window.location.reload();
             }, 10000)
         });
+        connection.on('GameEventHappened', (value) => {
+            gameState.gameFrameUpdated = true;
+            gameState.gameEvent = value.message;
+        });
         connection.on('Goal', (value) => {
             gameState.gameFrameUpdated = true;
             gameState.gameEvent = value.gameEvent;
@@ -51,6 +60,8 @@ export default class GameControlService {
 
     private updateGameFrame(gameFrame: GameFrame) {
         gameState.frameNumber = gameFrame.frameNumber;
+        gameState.frameExpiration = gameFrame.frameExpiration;
+        gameState.showVoting = gameState.frameExpiration > 0;           // Voting should only be displayed if it is a regular GameFrame and not an event notification
         gameState.players = gameFrame.players;
         gameState.gameFrameUpdated = true;
         gameState.gameScore = gameFrame.gameScore;
@@ -73,4 +84,15 @@ export default class GameControlService {
         gameState.ybHasBall = isYb;
         gameState.otherHasBall = isOther;
     }
+}
+
+export interface GameFrame{
+    gameId: string,
+    frameExpiration: integer,
+    frameNumber: integer,
+    gameEvent: string,
+    gameScore: string,
+    gameTime: string,
+    ball: Position,
+    players: Player[],
 }
