@@ -1,8 +1,8 @@
 import {Scene3D, THREE,} from '@enable3d/phaser-extension'
 import Ball from "../objects/ball";
 import Pitch from "../objects/pitch";
-import {gameState, Player as PlayerType} from '../game';
-import Player from '../objects/player';
+import {gameState, Player, Position} from '../game';
+import PlayerObject from '../objects/player';
 import GameControlService from '../services/gameControlService';
 import Banner from '../objects/banner';
 
@@ -14,11 +14,13 @@ export default class MainScene extends Scene3D {
 
   gameControlService: GameControlService;
 
-  players = new Set<Player>();
+  players = new Set<PlayerObject>();
   private ball : Ball;
 
   private textScoreAndTime: any;
   private textEvent: any;
+
+  private positionExtensionFactor: number = 3.0;
 
   constructor() {
     super('MainScene')
@@ -33,8 +35,6 @@ export default class MainScene extends Scene3D {
 
   create() {
     this.gameControlService = new GameControlService();
-
-    console.log(gameState);
 
     this.gameControlService.start().then(() => {
       this.gameControlService.sendRegistration(1, gameState.awayHome).then(() => {
@@ -60,7 +60,9 @@ export default class MainScene extends Scene3D {
   }
 
   private updateScoreBoard() {
-    this.textScoreAndTime.text = gameState.gameTime + ' - ' + gameState.gameScore;
+    if (this.textScoreAndTime.text) {
+      this.textScoreAndTime.text = gameState.gameTime + ' - ' + gameState.gameScore;
+    }
   }
 
   private updateGameEventText() {
@@ -77,9 +79,15 @@ export default class MainScene extends Scene3D {
     } else {
       let i = 0;
 
+      let playerPositions: Position[] = [];
+
       this.players.forEach(player => {
         if(gameState.players[i]) {
-          player.moveToPosition(gameState.players[i].position);
+          let currentPlayersPositionOnField = this.getNearestFreePlayerPosition(playerPositions,
+              this.extendPosition(gameState.players[i].position));
+
+          playerPositions.push(currentPlayersPositionOnField);
+          player.moveToPosition(currentPlayersPositionOnField);
         }
         i++;
       })
@@ -152,15 +160,62 @@ export default class MainScene extends Scene3D {
     this.input.keyboard.on('keydown-C', () => {
       gameState.hasBall=true;
       this.show2d();
-    })
+    });
   }
 
-  private initializePlayers(playerArray: PlayerType[]) {
+  private initializePlayers(playerArray: Player[]) {
     playerArray.forEach((pp, index) => {
       let color = index < 6 ? 0xf2d045 : 0x153A83;
-      const player = new Player(this, pp.position, color, pp.id === gameState.playerId);
+      const player = new PlayerObject(this, pp.position, color, pp.id === gameState.playerId);
       player.activatePhysics();
       this.players.add(player);
     });
+  }
+
+  private isPositionFree(playerPositions: Position[], position: Position): boolean {
+    for (const playerPosition of playerPositions) {
+      if (this.positionEquals(playerPosition, position)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private extendPosition(position: Position): Position {
+    return { x: position.x * this.positionExtensionFactor, y: position.y *  this.positionExtensionFactor} as Position
+  }
+
+  private getNearestFreePlayerPosition(playerPositions: Position[], position: Position) {
+    if (this.isPositionFree(playerPositions, position)){
+      return position;
+    }
+
+    const pathCheckingPositions = [
+      {x: 0, y: 1},
+      {x: 1, y: 0},
+      {x: 0, y: -1},
+      {x: 0, y: -1},
+      {x: -1, y: 0},
+      {x: -1, y: 0},
+      {x: 0, y: 1},
+      {x: 0, y: 1},
+    ] as Position[];
+
+    for (const nextPath of pathCheckingPositions) {
+      const newPosition = this.addPositions(position, nextPath);
+      if (this.isPositionFree(playerPositions, newPosition)){
+        return newPosition;
+      }
+    }
+
+    return position;
+  }
+
+  private positionEquals(position1: Position, position2: Position): boolean {
+    return (position1.x === position2.x) && (position1.y === position2.y);
+  }
+
+  private addPositions(position1: Position, position2: Position): Position {
+    return {x: position1.x + position2.x, y: position1.y + position2.y} as Position
   }
 }
