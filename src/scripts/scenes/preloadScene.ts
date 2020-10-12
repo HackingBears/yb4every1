@@ -1,6 +1,6 @@
 import {gameState} from '../game';
-import {Team} from '../services/team.model';
 import GameControlService from '../services/gameControlService';
+import {Team} from '../services/game.model';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
